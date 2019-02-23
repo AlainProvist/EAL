@@ -30,3 +30,22 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio
+*.ncb
+*.suo
+*.opensdf
+*.sdf
+*.vcxproj.filters
+*.vcxproj.user
+*.exp
+*.pdb
+*.ipdb
+*.iobj
+*.ilk
+*.manifest
+.vs/
+Debug/
+Release/
+
+

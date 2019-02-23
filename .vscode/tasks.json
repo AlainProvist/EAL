@@ -1,0 +1,34 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Injection",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": ".\\build_injection.bat",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build EAL",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": ".\\build_eal.bat",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build & run Injection",
+            "type": "shell",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "command": ".\\build_injection.bat && .\\bin\\injection.exe"
+        }
+    ]
+}
