@@ -395,7 +395,7 @@ void HandleCrash(_EXCEPTION_POINTERS* exceptionInfo)
 	//PrintStack();
 	MakeMinidump(exceptionInfo);
 
-	MessageBoxA( NULL, "Please send us your crashdump.dmp to help us fix this crash.", "Skandia just crashed !", NULL );
+	MessageBoxA( NULL, "Please send us your crashdump.dmp to help us fix this crash.", "EAL just crashed !", NULL );
 }
 
 void DumpMemoryRegion(void* address, u32 size, const std::string& filename, u32 lineSize/* = 0x10*/)

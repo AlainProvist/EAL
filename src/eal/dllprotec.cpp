@@ -92,7 +92,7 @@ BOOL WINAPI Module32Next_Hook (HANDLE snapshot, LPMODULEENTRY32 moduleEntry)
 
 	if(entry.modBaseAddr == (BYTE*)hDllModule)
 	{
-		WarningMessage("Module32Next tried to access Skandia.");
+		WarningMessage("Module32Next tried to access this module.");
 		WarningMessage(StringFormat("Function returns to %p", _ReturnAddress()).c_str());
 		if(!Module32Next_Unhook(snapshot, &entry))
 		{
