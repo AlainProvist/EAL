@@ -1,2 +1,0 @@
-02/23 22:33:58.729 - [Eidolons]Retrieving object from eidolon at slot 1. 
-
