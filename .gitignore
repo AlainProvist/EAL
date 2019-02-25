@@ -48,4 +48,6 @@
 Debug/
 Release/
 
+bin/logs.txt
+
 
