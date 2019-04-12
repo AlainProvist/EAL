@@ -150,37 +150,41 @@ unsigned int __stdcall HookThread(void* pArguments)
 	}
 	PID = GetCurrentProcessId( );
 
-	RetrieveAddresses();
-
-
-	DllProtec();
-
-	if(!invalidTarget)
+	if (RetrieveAddresses())
 	{
-        INSTALL_HOOK(MainLoop, 7, DETOUR_MAIN_LOOP_OFFSET);
-        INSTALL_HOOK(CrashHandler, 6, DETOUR_CRASH_HANDLER_OFFSET);
+		DllProtec();
+
+		if (!invalidTarget)
+		{
+			INSTALL_HOOK(MainLoop, 7, DETOUR_MAIN_LOOP_OFFSET);
+			INSTALL_HOOK(CrashHandler, 6, DETOUR_CRASH_HANDLER_OFFSET);
+		}
+
+		srand((u32)time(NULL) + GetCurrentThreadId());
+
+
+		while (!exitThread)
+		{
+			// TODO : some UI window can safely update here
+
+			// Monitor the game window for closing
+			{
+				UseScopeLock(GameThreadSet);
+				if (hGameThread && !exitThread)
+				{
+					u32 dwExitCode = 0;
+					GetExitCodeThread(hGameThread, &dwExitCode);
+					exitThread = (dwExitCode == 0);
+				}
+			}
+
+			Sleep(100);
+		}
 	}
-
-	srand((u32)time(NULL)+GetCurrentThreadId());
-
-	
-	while(!exitThread)
-    {
-		// TODO : some UI window can safely update here
-
-		// Monitor the game window for closing
-        {
-            UseScopeLock(GameThreadSet);
-            if(hGameThread && !exitThread)
-            {
-                u32 dwExitCode = 0;
-                GetExitCodeThread(hGameThread, &dwExitCode);
-                exitThread = (dwExitCode == 0);
-            }
-        }
-
-        Sleep( 100 );
-    }
+	else
+	{
+		MessageBox(NULL, "Can't retrieve addresses from patterns!", "Error", MB_OK);
+	}
 
 	{
 		UseScopeLock(SafeExitFlags);
