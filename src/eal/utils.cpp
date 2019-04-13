@@ -319,7 +319,6 @@ void UpdateEudemons(float dt)
 	if(!IsInGame() || GetLocalPlayerInfo()->level <= 1)
 		return;
 
-	return;
 	EudemonWindow* ew = (EudemonWindow*)WindowManager::GetWindowByName("EudemonExtendWnd");
 	if(ew && !ew->unkPtr)
 	{
