@@ -78,6 +78,12 @@ size_t* ThreadSafeReadAddress(size_t* addr, size_t offset)
 	return ret;
 }
 
+CurrentMap* GetCurrentMap(u32 lpBase/* = CURRENT_MAP_BASE*/)
+{
+	CurrentMap* cw = (CurrentMap*)*(u32*)lpBase;
+	return cw;
+}
+
 Entity* GetLocalPlayer(u32 lpBase/* = TARGETING_COLLECTIONS_BASE*/, u32 lpFunction/* = GET_LOCAL_PLAYER*/)
 {
 	Entity* localPlayer = NULL;
@@ -103,6 +109,34 @@ MainPlayerInfo* GetLocalPlayerInfo()
 	EntityInfo* data = localPlayer? localPlayer->info : NULL;
 
 	return (MainPlayerInfo*)data;
+}
+
+EntityCollection* GetEntityCollection(EntityCollectionType type, u32 lpBase/* = TARGETING_COLLECTIONS_BASE*/)
+{
+	size_t* addr = (size_t*)lpBase;
+	if (addr)
+		addr = ThreadSafeReadAddress(addr, 0);
+	if (!addr)
+		return NULL;
+	addr = (size_t*)((size_t)addr + 0x51C + type * sizeof(EntityCollection));
+
+	return (EntityCollection*)addr;
+}
+
+bool IsInGame()
+{
+	CurrentMap* curMap = GetCurrentMap();
+	if (curMap && curMap->mapID > 0 && curMap->mapID != 0x63/*char selection*/)
+	{
+		EntityCollection* ec = GetEntityCollection(ECT_Chara);
+		if (ec && ec->container)
+		{
+			Entity* locPlayer = GetLocalPlayer();
+			if (locPlayer)
+				return locPlayer->info && locPlayer->model && locPlayer->actor && locPlayer->info->charName != "";
+		}
+	}
+	return false;
 }
 
 u32 GetInventoryAccessPtr()
@@ -282,9 +316,10 @@ void SelectEudemon(int slotID, EudemonWindow* ei, u32 fct/* = EUDEMON_SELECT_FUN
 
 void UpdateEudemons(float dt)
 {
-	if(!GetLocalPlayerInfo() || GetLocalPlayerInfo()->level <= 1)
+	if(!IsInGame() || GetLocalPlayerInfo()->level <= 1)
 		return;
 
+	return;
 	EudemonWindow* ew = (EudemonWindow*)WindowManager::GetWindowByName("EudemonExtendWnd");
 	if(ew && !ew->unkPtr)
 	{

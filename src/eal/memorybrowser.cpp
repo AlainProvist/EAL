@@ -40,6 +40,8 @@ const char* const MemoryPatternTableStrings[GAID_MAX] =
 	"EUDEMON_SELECT_FUNCTION",
 	"EUDEMON_ISMEDITATING_FUNCTION",
 	"EUDEMON_HASGIFT_FUNCTION",
+
+	"CURRENT_MAP_BASE",
 	
 	"DETOUR_MAIN_LOOP_OFFSET",			
 	"DETOUR_CRASH_HANDLER_OFFSET"
@@ -70,6 +72,9 @@ MemorySearchEntry MemoryPatternTable[GAID_MAX] =
 	MemorySearchEntry((u8*)"\x3B\x01\x7D\x1A\x0F",		"xxxxx",	-0x11,	1, MemorySearchEntry::RT_LOCATION), 
 	// EUDEMON_HASGIFT_FUNCTION :		3B 01 7D 1A 0F // OK (search in EUDEMON_SELECT_FUNCTION)
 	MemorySearchEntry((u8*)"\x3B\x01\x7D\x1A\x0F",		"xxxxx",	-0x11,	2, MemorySearchEntry::RT_LOCATION), 
+
+	// CURRENT_MAP_BASE :				C0 74 0D 83 3D // OK
+	MemorySearchEntry((u8*)"\xC0\x74\x0D\x83\x3D",		"xxxxx",	-0xA,	1, MemorySearchEntry::RT_ADDRESS),
 	
 	// DETOUR_MAIN_LOOP_OFFSET :		FF 80 BE 08 01 // OK
 	MemorySearchEntry((u8*)"\xFF\x80\xBE\x08\x01",		"xxxxx",	0x1,	1, MemorySearchEntry::RT_LOCATION, true, (u8*)"\x80\xBE\x08\x01\x00\x00\x00"),	

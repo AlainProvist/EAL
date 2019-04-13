@@ -27,6 +27,47 @@
 #include "libutils.h"
 
 
+struct EntityElement
+{
+	EntityElement* next;
+	EntityElement* previous;
+	u32 id;
+	Entity* entity;
+};
+
+template <typename T>
+struct Collection
+{
+	u32 unk1;
+	u32 unk2;
+
+	template <typename T>
+	struct Container
+	{
+		T* begin;
+		T* unkLink1;
+		T* unkLink2;
+	};
+
+	Container<T> *container;// 8
+	u32 nbElements;// c
+
+	u8 unk3[0x1c];// 10
+
+	std::string name;// 2c : name of the collection
+};
+typedef Collection<EntityElement> EntityCollection;
+
+enum EntityCollectionType { ECT_Chara, ECT_Effect, ECT_Duel };
+
+struct CurrentMap
+{
+	u32 unk1;
+	u16 unk2;// 0x4
+	s16 mapID;
+	std::string mapName1;// 0x8
+	std::string mapName2;// 0x24
+};
 
 struct InventoryBag
 {

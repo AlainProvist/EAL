@@ -52,7 +52,9 @@ struct EntityInfo
 	u32 currentHP;//8
 	u32 cash;//C
 	u32 level;//10
-	u8 unk3[0x454];//14
+	u8 unk3[0x118];//14
+	std::string charName; // 0x12C
+	u8 unk4[0x338];//130
 };
 
 
@@ -68,6 +70,12 @@ struct Entity
 	u32 unk2;
 	u32 entityID;//8
 	EntityInfo *info;//C
+	void* model;// 10
+	void* unkPtr1;// 14
+	void* unkPtr2;// 18
+	u8 unk3[0x10];//1C
+	u32 typeID;//2C
+	void* actor;//30
 };
 
 enum InventoryType {IT_BackPack = 0, IT_Equipment = 1, IT_Bank = 4, IT_BackPack_Bags = 5, IT_EudemonInventory = 6};

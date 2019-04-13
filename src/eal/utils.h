@@ -48,6 +48,8 @@ extern MemorySearchEntry MemoryPatternTable[GAID_MAX];
 #define EUDEMON_ISMEDITATING_FUNCTION	MemoryPatternTable[GAID_EUDEMON_ISMEDITATING_FUNCTION].Address
 #define EUDEMON_HASGIFT_FUNCTION		MemoryPatternTable[GAID_EUDEMON_HASGIFT_FUNCTION].Address
 
+#define CURRENT_MAP_BASE				MemoryPatternTable[GAID_CURRENT_MAP_BASE].Address
+
 
 #define DETOUR_MAIN_LOOP_OFFSET			MemoryPatternTable[GAID_DETOUR_MAIN_LOOP_OFFSET].Address 
 #define DETOUR_CRASH_HANDLER_OFFSET		MemoryPatternTable[GAID_DETOUR_CRASH_HANDLER_OFFSET].Address
@@ -137,8 +139,12 @@ std::string GetDllPath();
 
 size_t* ThreadSafeReadAddress(size_t* addr, size_t offset);
 
+CurrentMap* GetCurrentMap(u32 lpBase = CURRENT_MAP_BASE);
+
 Entity* GetLocalPlayer( u32 lpBase = TARGETING_COLLECTIONS_BASE, u32 lpFunction = GET_LOCAL_PLAYER );
 MainPlayerInfo* GetLocalPlayerInfo();
+EntityCollection* GetEntityCollection(EntityCollectionType type, u32 lpBase = TARGETING_COLLECTIONS_BASE);
+bool IsInGame();
 
 
 InventoryBag* GetInventoryBag( u32 bagId, u32 inventoryType = IT_BackPack, u32 lpFunction = INVENTORY_ACCESS_FUNCTION );
