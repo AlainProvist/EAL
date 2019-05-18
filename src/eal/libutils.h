@@ -114,11 +114,11 @@ struct Eudemon // size = 0x160 ?
 	u32 eudemonPtr;
 	u16 slotIdx;// 4
 	u16 unk1;
-	u8 unk2[0x124];// 8
-	u32 currentPM;// 12C
-	u16 chatAttempts;// 130
+	u8 unk2[0x12C];// 8
+	u32 currentPM;// 134
+	u16 chatAttempts;// 138
 	u16 unk3;	
-	u8 unk4[0x2C];// 134
+	u8 unk4[0x24];// 13C
 };
 
 enum EudemonAction{EA_TALK = 1, EA_MEDITATION = 2, EA_RETRIEVE = 4};
